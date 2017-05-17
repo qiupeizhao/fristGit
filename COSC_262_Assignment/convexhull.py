@@ -4,27 +4,8 @@
    Usercode: pqi13
 """
 from test import*    
-    
-#def isCCW(ptA,ptB,ptC):
-    #return (lineFn(ptA, ptB, ptC) > 0)
 
-#def theta(pointA,pointB):
-    #dx = pointB[0] - pointA[0]
-    #dy = pointB[1] - pointA[1]
-    
-    #if abs(dx) < 1.e-6 and abs(dy) < 1.e-6:
-        #t = 0
-    #else:
-        #t = dy/(abs(dx) + abs(dy))
-    #if dx < 0:
-        #t = 2 - t
-    #elif dy < 0:
-        #t = 4 + t
-        
-    #return t * 90
-    
-        
-    
+ 
 
 def readDataPts(filename, N):
     """Reads the first N lines of data from the input file
@@ -75,6 +56,8 @@ def giftwrap(listPts):
         minAngle = 361
         for j in range(i,n):
             angle = theta(pts[i], pts[j])
+            if angle == 0:
+                angle = 360
             if (angle < minAngle and angle > v and pts[j] != pts[i]):
                 minAngle = angle;
                 k = j   #do we need to 
@@ -115,21 +98,23 @@ def amethod(listPts):
     """Returns the convex hull vertices computed using 
           a third algorithm
     """
-    #Your implementation goes here    
+    pre_list = exclude_point(listPts)
+    chull = grahamscan(pre_list)
     return chull
 
 
 def main():
     print()
     listPts = readDataPts('Set_A.dat', 500)  #File name, numPts given as example only
-    print(listPts)
+    #print(listPts)
     print(giftwrap(listPts))      #You may replace these three print statements
     print(len(giftwrap(listPts)))
     print (grahamscan(listPts))   #with any code for validating your outputs
-    #print (amethod(listPts))   
+    print (amethod(listPts))   
     
 
  
 if __name__  ==  "__main__":
     main()
+  
   
