@@ -12,14 +12,12 @@ def readDataPts(filename, N):
           and returns a list of N tuples
           [(x0,y0), (x1, y1), ...]
     """
-    i = 0
+    fo = open(filename, 'r')
     listPts = []
-    for line in open(filename, 'r'):
-        if i < N:
-            coordinate = line.rstrip() 
-            (x,y) = coordinate.split()
-            listPts.append((float(x),float(y)))
-            i = i + 1    
+    for i in  range(N):
+        coordinate = fo.readline() 
+        (x,y) = coordinate.split()
+        listPts.append((float(x),float(y)))    
     
     return listPts
 
@@ -54,13 +52,14 @@ def giftwrap(listPts):
     while k != n-1:
         pts[i],pts[k] = pts[k],pts[i]
         minAngle = 361
+        
         for j in range(i,n):
             angle = theta(pts[i], pts[j])
-            if angle == 0:
+            if abs(angle) < 1.e-6:
                 angle = 360
             if (angle < minAngle and angle > v and pts[j] != pts[i]):
                 minAngle = angle;
-                k = j   #do we need to 
+                k = j  
         i = i + 1
         v = minAngle
     

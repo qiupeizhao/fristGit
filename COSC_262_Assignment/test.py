@@ -56,8 +56,6 @@ def add_point(input_list,point,original):
                 input_list.append(point)
                 return input_list
                 
-        #if theta(input_list[0],original) < theta(point, original):
-                #input_list.insert(0,point)
         i = 0
         n = len(input_list) 
         
@@ -84,6 +82,12 @@ def sort_by_angle(original,point_list):
                 ans_list = add_point(ans_list, point, original)
         return ans_list
 
+
+def sort_by_angle_1(original,point_list):
+        ans_list = []
+        key = lambda p:theta(original, p)
+        ans_list = sorted(point_list[:],key=key)
+        return ans_list
 
 def find_special_point(input_coordinate):
         max_x_index = 0
@@ -145,13 +149,13 @@ def exclude_point(input_list):
                         output_list.append(point)
         return output_list               
 
-input_list = generate_input()       
-print(input_list)
+#input_list = generate_input()       
+#print(input_list)
 
-max_x_index,min_x_index,max_y_index,min_y_index =find_special_point(input_list)
-print(input_list[max_x_index],input_list[min_x_index],input_list[max_y_index],input_list[min_y_index])   
-output_list = exclude_point(input_list)
-print(output_list)
+#max_x_index,min_x_index,max_y_index,min_y_index =find_special_point(input_list)
+#print(input_list[max_x_index],input_list[min_x_index],input_list[max_y_index],input_list[min_y_index])   
+#output_list = exclude_point(input_list)
+#print(output_list)
 
 
 #print(isCCW((4, 1), (3, 5),(-2,5)))
