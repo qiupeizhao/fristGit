@@ -48,7 +48,7 @@ def min_y_value_point(input_coordinate):
 
 #in_put = [(1,2),(1,3),(1,10),(1,4),(1,12),(1,-2),(1,-1),(1,0),(1,5)]
 #in_put2 = [(-1,1),(2,1),(-2,1),(3,1),(-7,1)]
-#in_put3 = [(3,3),(-2,3),(2,1),(-2,5),(3,5),(4,1),(-1,1),(1,2),(1,1)]
+in_put3 = [(3,3),(-2,3),(2,1),(-2,5),(3,5),(4,1),(-1,1),(1,2),(1,1)]
 
 def add_point(input_list,point,original):
         
@@ -75,19 +75,22 @@ def add_point(input_list,point,original):
 
 
 #print(min_y_value_point(in_put))                       
+#def sort_by_angle(original,point_list):
+        #point_list = point_list[:]
+        #ans_list = []
+        #while point_list != []:
+                #point = point_list.pop()
+                #ans_list = add_point(ans_list, point, original)
+        #return ans_list
+
+
 def sort_by_angle(original,point_list):
-        ans_list = []
-        while point_list != []:
-                point = point_list.pop()
-                ans_list = add_point(ans_list, point, original)
+        fo = lambda p:theta(original, p)
+        ans_list = sorted(point_list[:],key=fo)
         return ans_list
 
-
-def sort_by_angle_1(original,point_list):
-        ans_list = []
-        key = lambda p:theta(original, p)
-        ans_list = sorted(point_list[:],key=key)
-        return ans_list
+#print(sort_by_angle((0,0), in_put3))
+#print(sort_by_angle_1((0,0), in_put3))
 
 def find_special_point(input_coordinate):
         max_x_index = 0
