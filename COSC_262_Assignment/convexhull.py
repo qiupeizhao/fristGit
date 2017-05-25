@@ -36,8 +36,6 @@ def giftwrap(copy):
           giftwrap algorithm as a list of 'h' tuples
           [(u0,v0), (u1,v1), ...]    
     """
-    # make a copy of input list as operation list so function doesn't effect input list
-    #copy = listPts[:]
     
     # initial the list index and the local minimum angle 
     i = 0
@@ -93,8 +91,8 @@ def giftwrap(copy):
         # record the current smallest point, the next smallest most bigger than it 
         v = minAngle
     
-    # return the ans_list at i index in the operating list as it is when...
-    # the convex hull return to starting point
+    # return the ans_list at i index from operating list since it is when...
+    # the complete the convex hull and return to starting point
     chull = copy[:i]  
     return chull
 
@@ -104,20 +102,19 @@ def grahamscan(copy):
          Graham-scan algorithm as a list of 'h' tuples
          [(u0,v0), (u1,v1), ...]  
     """
-    # make a copy of input list as operation list so function doesn't effect input list
-    # copy = listPts[:]
+
    
     # find the start point which is the right most minimum y value 
-    
-    # find the index of the right most button point    
+       
     start_point_index = min_y_value_point(copy)
     
-    # append the start point into the operation point
+    # append the start point into the operation stock
     start_point = copy.pop(start_point_index)
     chull = [start_point]
     
-    # sort the input the list according to the angle they....
-    # make with the start point
+    # sort the input the list according to the angle which they....
+    # make with the starting point
+
     order_list = sort_by_angle(start_point,copy)   
     
     # append the first element in the sorted list.... 
@@ -140,34 +137,43 @@ def grahamscan(copy):
         if isCCW(chull[-2], chull[-1],point) is True:
             chull.append(point)
             
-    # after iterating through the point in the sorted point return 
-    # ans list
+    # after iterating through the point in the sorted list return 
+    # the ans list
     return  chull
 
 
 def amethod(listPts):
     """Returns the convex hull vertices computed using 
-          a third algorithm
+          a modified Gift-Wrapping algorithm 
     """
+    # pre-processing step which exclude points inclose by 
+    # the trangular made by the extremal point
+    
     pre_list = exclude_point(listPts)
-    chull = grahamscan(listPts)
+    
+    # Run the Gift-Wrapping Algorithm over the pre-proccessed input set 
+    chull = giftwrap(pre_list)
     return chull
 
 
-#def main():
-    #listPts = readDataPts('Set_B.dat', 1000)  #File name, numPts given as example only
-    #copy_1 = listPts[:]
-    #copy_2 = listPts[:]
-    #copy_3 = listPts[:]
-    #copy_4 = listPts[:]
-    #print(giftwrap(copy_4))      #You may replace these three print statements
-    #print(len(giftwrap(copy_1)))
-    #print (grahamscan(copy_2))   #with any code for validating your outputs
-    #print (amethod(copy_3))   
+def main():
+    
+    listPts = readDataPts('Set_B.dat', 1000)  #File name, numPts given as example only
+    
+    copy_1 = listPts[:]     # make a copy of input list
+    copy_2 = listPts[:]     # make a copy of input list
+    copy_3 = listPts[:]     # make a copy of input list
+    copy_4 = listPts[:]     # make a copy of input list
+    
+    print(giftwrap(copy_4))      # runing the Gift-wrapping algrithm over input-list
+ 
+    print (grahamscan(copy_2))   #runing the Graham-Scan algorithm over input-list
+    
+    print (amethod(copy_3))   #runing the improved version of Gift-wrapping algorithm over input-list
     
 
  
-#if __name__  ==  "__main__":
-    #main()
+if __name__  ==  "__main__":
+    main()
   
   
